@@ -1,1 +1,0 @@
-{"merchant_id": "merchant_abc", "event_type": "payment_succeeded", "payload": {"amount": 9900, "currency": "usd"}, "target_url": "https://httpbin.org/status/500"}

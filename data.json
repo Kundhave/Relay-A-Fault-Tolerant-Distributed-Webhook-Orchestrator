@@ -1,1 +1,0 @@
-{"merchant_id": "test_merchant", "event_type": "payment_succeeded", "payload": {"amount": 5000}, "target_url": "https://httpbin.org/post"}

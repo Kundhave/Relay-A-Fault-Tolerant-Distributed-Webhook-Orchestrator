@@ -5,6 +5,7 @@ from .database import engine, Base, get_db
 from . import models  # noqa: F401 — must import to register models with Base.metadata
 from .models import WebhookEvent, EventStatus
 from .schemas import EventRequest, EventResponse
+from .tasks import deliver_webhook
 
 app = FastAPI()
 
@@ -41,8 +42,10 @@ async def ingest_event(event: EventRequest, db: Session = Depends(get_db)):
     db.add(db_event)
     db.commit()
     db.refresh(db_event)
+    deliver_webhook.delay(str(db_event.id))
     return EventResponse(
         id=str(db_event.id),
         status="PENDING",
         message="Event received and queued for delivery",
     )
+
